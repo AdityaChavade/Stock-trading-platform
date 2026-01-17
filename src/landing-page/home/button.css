@@ -1,0 +1,8 @@
+.button {
+               /* Full screen height */
+  display: flex;
+  flex-direction: column;     /* Stack items vertically */
+  justify-content: center;    /* Vertical center */
+  align-items: center;        /* Horizontal center */
+  text-align: center;
+}

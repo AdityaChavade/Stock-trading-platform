@@ -1,0 +1,8 @@
+.signup-button{
+  
+    display: flex;
+    justify-content: center;   
+    align-items: center;   
+    size: 600px;    
+
+}

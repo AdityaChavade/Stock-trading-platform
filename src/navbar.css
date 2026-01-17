@@ -1,0 +1,59 @@
+/* Remove default browser spacing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+}
+
+/* Full width container */
+.container {
+  width: 100%;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;        /* stick to top */
+  top: 0;
+  left: 0;
+  width: 100%;            /* full screen width */
+  height: 64px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+
+/* Logo */
+.my-logo img {
+  margin-left: 30%;
+  height: 200px;
+  object-fit: contain;
+}
+
+/* Navigation links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 52px;
+  margin-right: 10%;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  font-size:25px;
+  font-weight: 300;
+  color: #878787
+;
+}
+
+.nav-links li a:hover {
+  color: #1976d2;
+}
