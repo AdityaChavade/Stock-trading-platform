@@ -1,0 +1,31 @@
+.pricing-hero {
+  display: flex; /* makes children side by side */
+  gap: 20px;  
+  justify-content: center;   /* space between divs */
+  flex:1;
+}
+.pricing-text{
+   margin-top :50px;
+   justify-content: center;
+}
+.pricing-hero img{
+    width: 50%;
+    float: left;
+    
+}
+.pricing-text{
+    justify-content: flex-start;
+    text-align: left;
+}
+.image {
+  display: flex;          /* Place items side by side */
+  gap: 20px;              /* Space between items */
+ 
+}
+.item {
+  display: flex;          /* Image and text side by side inside each item */
+  align-items: center;    /* Vertically center text with image */
+  gap: 10px;              /* Space between image and text */
+  flex: 1;                /* Make items take equal space */
+     
+}
