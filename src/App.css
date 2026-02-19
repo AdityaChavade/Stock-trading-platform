@@ -1,0 +1,47 @@
+/* App.css */
+
+/* Global Reset (Optional but recommended if not in index.css) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color:white;
+  color: #444444;
+}
+
+/* Main Application Layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Prevent whole-page scrolling */
+}
+
+/* The split area below the Navbar */
+.main-wrapper {
+  display: flex;
+  flex: 1; /* Takes up all remaining height below navbar */
+  overflow: hidden; /* Keeps scrolling contained inside the child columns */
+}
+
+/* Left Column: Watchlist Sidebar */
+.sidebar-container {
+  width: 380px; /* Fixed width like in the Kite platform */
+  border-right: 1px solid white; /* Subtle vertical gray line */
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  overflow-y: auto; /* Allows scrolling only inside the watchlist */
+}
+
+/* Right Column: Dashboard Data */
+.content-container {
+  flex: 1; /* Takes up all the remaining width on the right */
+  background-color:white;
+  padding: 2rem; /* Breathing room around the text and charts */
+  overflow-y: auto; /* Allows scrolling only inside the dashboard */
+}
