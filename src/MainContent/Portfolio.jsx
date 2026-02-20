@@ -1,4 +1,5 @@
 import { user } from "./user.js";
+import { holdings ,positions} from "./data.js";
 import "./Portfolio.css";
 
 function Portfolio() {
@@ -12,12 +13,12 @@ function Portfolio() {
         </div>
 
         <div className="portfolio-item">
-          <span className="value">{user.portfolio.holdings}</span>
+          <span className="value">{holdings.length}</span>
           <span className="label">Holdings</span>
         </div>
 
         <div className="portfolio-item">
-          <span className="value">{user.portfolio.positions}</span>
+          <span className="value">{positions.length}</span>
           <span className="label">Positions</span>
         </div>
       </div>
