@@ -1,0 +1,61 @@
+/* DASHBOARD WRAPPER */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+  height: 100%;
+  overflow: auto;
+  min-width: 0;
+}
+
+/* THREE CARDS SECTION */
+.combinethree {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  background: #fff;
+  border: 1px solid #eee;
+}
+
+/* CARDS */
+.equity,
+.commodity,
+.portfolio {
+  padding: clamp(16px, 1.2vw, 20px);
+  border-right: 1px solid #eee;
+  min-width: 0;
+}
+
+/* REMOVE LAST BORDER */
+.portfolio {
+  border-right: none;
+}
+
+/* HOLDING SECTION */
+.holding {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #eee;
+  min-width: 0;
+}
+
+.holding h1 {
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* GRAPH WRAPPER */
+.dashboard canvas {
+  width: 100% !important;
+  max-height: 320px;
+}
+
+/* TEXT SAFETY */
+.equity *,
+.commodity *,
+.portfolio *,
+.holding * {
+  min-width: 0;
+  word-break: break-word;
+}

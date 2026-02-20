@@ -1,10 +1,14 @@
 import Navbar from "../Navbar";
+import SearchBar from "../WatchlistSidebar/SearchBar";
 import Watchlistitem from "../WatchlistSidebar/WatchlistItem";
 import Commodity from "./Commodity";
+import Dashboard from "./Dashboard";
 import Equity from "./Equity";
 import Holding from "./Holding";
 import HoldingBarGraph from "./HoldingBarGraph";
 import Portfolio from "./Portfolio";
+import { Outlet } from "react-router-dom";
+
 import "./maincontent.css";
 
 function MainContent() {
@@ -16,20 +20,9 @@ function MainContent() {
 
       <div className="right">
         <Navbar></Navbar>
-        <h1>Hi User</h1>
-        <br></br>
-        <div className="combinethree">
-          <Equity />
-          <Commodity />
-          <Portfolio />
-        </div>
+        <Outlet />
 
-        <div className="holding">
-          <h1>Holdings</h1>
-          <Holding />
-        </div>
         <br></br>
-        <HoldingBarGraph></HoldingBarGraph>
       </div>
     </div>
   );

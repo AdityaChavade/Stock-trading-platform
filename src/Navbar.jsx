@@ -1,39 +1,40 @@
-import './Navbar.css'; // Import the standard CSS file
+import { NavLink } from "react-router-dom";
+import "./Navbar.css";
 
 const Navbar = () => {
   return (
     <nav className="navbar">
-      
-      {/* Left Side: Logo */}
+
+      {/* Logo */}
       <div className="logo-container">
         <div className="kite-logo"></div>
       </div>
 
-      {/* Right Side: Links & User Profile */}
+      {/* Right Section */}
       <div className="right-section">
-        
-        {/* Navigation Links */}
+
+        {/* Links */}
         <div className="nav-links">
-          <a href="#" className="active">Dashboard</a>
-          <a href="#">Orders</a>
-          <a href="#">Holdings</a>
-          <a href="#">Positions</a>
-          <a href="#">Funds</a>
-          <a href="#">Apps</a>
+          <NavLink to="/" end>Dashboard</NavLink>
+          <NavLink to="/orders">Orders</NavLink>
+          <NavLink to="/holdings">Holdings</NavLink>
+          <NavLink to="/positions">Positions</NavLink>
+          <NavLink to="/funds">Funds</NavLink>
+          <NavLink to="/holdings">Holdings</NavLink>
         </div>
 
-        {/* User Profile Section */}
+        {/* Profile */}
         <div className="user-profile">
-          <div className="avatar">
-             <img 
-               src="https://ui-avatars.com/api/?name=User&background=fbcfe8&color=000" 
-               alt="avatar" 
-             />
-          </div>
-          <span className="user-id">XX0000</span>
+          <img
+            className="avatar"
+            src="https://ui-avatars.com/api/?name=User&background=fbcfe8&color=000"
+            alt="avatar"
+          />
+          <span>XX0000</span>
         </div>
 
       </div>
+
     </nav>
   );
 };

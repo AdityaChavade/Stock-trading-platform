@@ -1,0 +1,51 @@
+/* 1. Container alignment and spacing */
+.button-container {
+  display: flex;
+  justify-content: flex-end; 
+  gap: 8px;                  
+}
+
+/* 2. Shared styles for all buttons */
+.buy-btn,
+.sell-btn,
+.chart-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* 3. Shared hover effect */
+.buy-btn:hover,
+.sell-btn:hover,
+.chart-btn:hover {
+  opacity: 0.8;
+}
+
+/* 4. Specific sizing and colors for text buttons */
+.buy-btn,
+.sell-btn {
+  padding: 4px 12px;
+  font-size: 12px;
+  min-width: 50px; 
+}
+
+.buy-btn {
+  background-color: #4caf50; /* Green */
+}
+
+.sell-btn {
+  background-color: #f44336; /* Red */
+}
+
+/* 5. Specific sizing and color for the icon button */
+.chart-btn {
+  background-color: #2196f3; /* Blue */
+  padding: 4px 8px;          /* Tighter padding to make it square-ish */
+  font-size: 16px;           /* Slightly larger size for the icon itself */
+}

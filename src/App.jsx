@@ -1,18 +1,27 @@
 import "./App.css";
-import Navbar from "./Navbar";
-import Watchlistitem from "./WatchlistSidebar/WatchlistItem";
-import Equity from "./MainContent/Equity";
-import Commodity from "./MainContent/Commodity";
-import Holding from "./MainContent/Holding";
-import Portfolio from "./MainContent/Portfolio";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainContent from "./MainContent/MainContent";
+import Dashboard from "./MainContent/Dashboard";
+import Orders from "./MainContent/Orders";
+import Funds from "./MainContent/Funds";
+import Position from "./MainContent/Position";
+import HoldingPage from "./MainContent/HoldingPage";
+
 function App() {
   return (
-    <>
-      <div>
-        <MainContent/>
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/" element={<MainContent />}>
+          <Route index element={<Dashboard />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="funds" element={<Funds />} />
+          <Route path="positions" element={<Position/>} />
+          <Route path="holdings" element={<HoldingPage />} />
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
   );
 }
 

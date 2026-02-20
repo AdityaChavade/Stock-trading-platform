@@ -1,0 +1,22 @@
+.table-data {
+  margin-top: 16px;
+}
+
+.table-data table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table-data th {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid #e5e7eb;
+  color: #374151;
+}
+
+.table-data td {
+  padding: 8px;
+  border-bottom: 1px solid #e5e7eb;
+  color: #111827;
+}

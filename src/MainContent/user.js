@@ -1,3 +1,4 @@
+
 let user = {
   equity: { Availble_balance: "8,90,000", margin_used: "56,000", Account_value: 89723 },
   commodity: { Availble_balance: "7,88,900", margin_used: 23490, Account_value: 92374 },
