@@ -1,50 +1,64 @@
-import { holdings } from "./data";
+import { useEffect, useState } from "react";
 import "./holdingpage.css";
+import axios from "axios";
+
 function HoldingPage() {
+  const [holdings, setHoldings] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/allHoldings")
+      .then((result) => {
+        console.log(result.data)
+        setHoldings(result.data);
+      })
+      .catch((error) => {
+        console.log("error occurred!", error);
+      });
+  }, []);
+
   return (
     <div>
-      <h1>Holings : {holdings.length}</h1>
+      <h1>Holdings: {holdings.length}</h1>
 
       <div className="table-data">
         <table>
-          <tr>
-            <th>Instrument</th>
-            <th>Qty</th>
-            <th>Avg.cost</th>
-            <th>LTP</th>
-            <th>Curr. val</th>
-            <th>P&L</th>
-            <th>Net chg</th>
-            <th>Day chg</th>
-          </tr>
-          {holdings.map((stock, idx) => {
-            const isProfit = stock.price >= stock.avg;
-            const profitclass = isProfit ? "profit" : "loss";
-            const dayClass = parseFloat(stock.day) >= 0 ? "profit" : "loss";
-            const pnl=(stock.price - stock.avg) * stock.qty;
+          <thead>
+            <tr>
+              <th>Instrument</th>
+              <th>Qty</th>
+              <th>Avg.cost</th>
+              <th>LTP</th>
+              <th>Curr. val</th>
+              <th>P&amp;L</th>
+              <th>Net chg</th>
+              <th>Day chg</th>
+            </tr>
+          </thead>
 
-            return (
-              <tr key={idx} className="row">
-                <td>{stock.name}</td>
-                <td>{stock.qty}</td>
-                <td>{stock.avg}</td>
-                <td>{stock.price}</td>
-                <td >{stock.qty * stock.price}</td>
-                <td className={profitclass} style={{color:pnl>=0?"green" :"red"}}>
-                  {pnl.toFixed(2)}
-                </td>
-                <td>{stock.net}</td>
-                <td
-                  className="profit"
-                  style={{
-                    color: isProfit ? "#069b06" : "#ff0000",
-                  }}
-                >
-                  {stock.day}
-                </td>
-              </tr>
-            );
-          })}
+          <tbody>
+            {holdings.map((stock) => {
+              const isProfit = stock.price >= stock.avg;
+              const pnl = (stock.price - stock.avg) * stock.qty;
+
+              return (
+                <tr key={stock.name}>
+                  <td>{stock.name}</td>
+                  <td>{stock.qty}</td>
+                  <td>{stock.avg}</td>
+                  <td>{stock.price}</td>
+                  <td>{(stock.qty * stock.price).toFixed(2)}</td>
+                  <td className={pnl >= 0 ? "profit" : "loss"}>
+                    {pnl.toFixed(2)}
+                  </td>
+                  <td>{stock.net}</td>
+                  <td className={isProfit ? "profit" : "loss"}>
+                    {stock.day}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
     </div>

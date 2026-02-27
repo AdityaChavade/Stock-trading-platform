@@ -29,16 +29,23 @@ function ListStock({ stock, change, value }) {
 
 function WatchListActions({ uid }) {
   return (
-    <Tooltip title="Buy (B)" placement="top" arrow TransitionComponent={Grow}>
-      <div className="button-container">
-        <button className="buy-btn">Buy</button>
-        <button className="sell-btn">Sell</button>
-        <button>
-          <BarChartOutlined></BarChartOutlined>
-        </button>
+    <div className="container-button">
+      <div className="buy-btn-container">
+        <Tooltip title="Buy" placement="top" arrow TransitionComponent={Grow}>
+          <button className="buy-btn">Buy</button>
+        </Tooltip>
       </div>
-    </Tooltip>
-    
+      <div className="sell-btn-container">
+        <Tooltip title="Sell" placement="top" arrow TransitionComponent={Grow}>
+          <button className="sell-btn">Sell</button>
+        </Tooltip>
+      </div>
+      <div className="chart-button-container">
+        <Tooltip title="Chart" placement="top" arrow TransitionComponent={Grow}>
+          <BarChartOutlined></BarChartOutlined>
+        </Tooltip>
+      </div>
+    </div>
   );
 }
 
