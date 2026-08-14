@@ -13,6 +13,7 @@ function Dashboard() {
         <Equity />
         <Commodity />
         <Portfolio />
+        
       </div>
 
       <div className="holding">

@@ -11,7 +11,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-
         <Route path="/" element={<MainContent />}>
           <Route index element={<Dashboard />} />
           <Route path="orders" element={<Orders />} />

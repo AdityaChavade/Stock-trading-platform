@@ -48,14 +48,15 @@ body {
 
 /* Stock row */
 .stock-row {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 14px;
   padding: 14px 16px;
   border-bottom: 1px solid #efefef;
   font-size: 14px;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+  height: 50px;
 }
 
 /* Hover */
@@ -63,19 +64,33 @@ body {
   background: #f9f9f9;
 }
 
-/* Stock name (left text) */
-.stock-row {
+.stock-name {
   font-weight: 600;
-  color: #333;
 }
 
+.stock-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 150px; /* Ensure space for actions */
+}
 
+.stock-numbers {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
-/* Change */
 .stock-change {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.stock-value {
   font-weight: 600;
   color: #333;
 }
+
 .positive {
   color: #2e7d32; /* green */
 }
