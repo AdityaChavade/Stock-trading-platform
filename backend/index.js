@@ -7,6 +7,8 @@ const OrderModel = require("./model/OrderModel");
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGO_URL;
 const cors = require("cors");
+const PositionRoute = require("./Routes/Position");
+const AuthRoute = require("./Routes/AuthRoute");
 
 const app = express();
 app.use(cors()); // IMPORTANT for React
@@ -36,25 +38,7 @@ app.get("/holdings", (req, res) => {
     });
 });
 
-app.get("/position", (req, res) => {
-  const newPosition = new Position({
-    Instrument: "BHARTIARTL",
-    Pro_Type: "CNC",
-    Qty: 2,
-    LTP: 538.05,
-    Curr_val: 541.15,
-    PL: 0.58,
-    Chg: 0.5,
-  });
-  newPosition
-    .save()
-    .then((result) => {
-      res.send("position !");
-    })
-    .catch((err) => {
-      res.send("error occured ");
-    });
-});
+
 
 app.post("/order", (req, res) => {
   const { Instruments, Type, Avg_Price, Qty } = req.body;
@@ -85,14 +69,14 @@ app.get("/allOrders", async (req, res) => {
   res.json(allOrders);
 });
 
-app.get("/allPositions", async (req, res) => {
-  let allPositions = await Position.find({});
-  res.json(allPositions);
-});
+
 app.get("/deletePositions", async (req, res) => {
   await Position.deleteMany({});
   res.send("All positions deleted");
 });
+
+app.use("/position",PositionRoute);
+app.use("/",AuthRoute);
 
 app.listen(3000, () => {
   console.log("running website !");
