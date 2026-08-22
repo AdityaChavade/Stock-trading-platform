@@ -1,10 +1,7 @@
-function Apps() {
-    return ( 
-        <div className="app">
-            <h1>Orders</h1>
+const App = () => {
+    return (
+        <h1>HEllo</h1>
+    )
+};
 
-        </div>
-     );
-}
-
-export default Apps;
+export default App;

@@ -1,4 +1,3 @@
-import { TableHead } from "@mui/material";
 import axios from "axios";
 import "./orders.css";
 import { useState, useEffect } from "react";
@@ -6,7 +5,7 @@ function Orders() {
   let [orders, setorders] = useState([]);
   useEffect(() => {
     let allOrders = axios
-      .get("http://localhost:3000/allorders")
+      .get("http://localhost:3000/order/allorders")
       .then((result) => {
         setorders(result.data);
       })

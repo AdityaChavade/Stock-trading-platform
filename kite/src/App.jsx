@@ -6,6 +6,8 @@ import Orders from "./MainContent/Orders";
 import Funds from "./MainContent/Funds";
 import Position from "./MainContent/Position";
 import HoldingPage from "./MainContent/HoldingPage";
+import Signup from "./MainContent/Signup";
+import Login from "./MainContent/login";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
           <Route path="holdings" element={<HoldingPage />} />
         </Route>
 
+        <Route path="/signup" element={<Signup/>}/>
+        <Route path="/login" element={<Login/>} />
       </Routes>
     </BrowserRouter>
   );

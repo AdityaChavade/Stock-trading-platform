@@ -1,0 +1,44 @@
+/* Signup.css - Simplified */
+
+.form_container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  font-family: sans-serif;
+}
+
+.form_container h2 {
+  text-align: center;
+}
+
+.form_container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form_container form div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form_container input, 
+.form_container button {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.form_container button {
+  background: #667eea;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.form_container span {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+} 

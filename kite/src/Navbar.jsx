@@ -15,13 +15,14 @@ const Navbar = () => {
 
         {/* Links */}
         <div className="nav-links">
-          <NavLink to="/" end>Dashboard</NavLink>
+          <NavLink to="/dashboard">Dashboard</NavLink>
           <NavLink to="/orders">Orders</NavLink>
           <NavLink to="/holdings">Holdings</NavLink>
           <NavLink to="/positions">Positions</NavLink>
           <NavLink to="/funds">Funds</NavLink>
-          <NavLink to="/holdings">Holdings</NavLink>
         </div>
+        
+        
 
         {/* Profile */}
         <div className="user-profile">

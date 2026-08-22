@@ -13,7 +13,10 @@ const OrderRoute = require("./Routes/Orders");
 const HoldingRoute = require("./Routes/Holding");
 
 const app = express();
-app.use(cors()); // IMPORTANT for React
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+})); // IMPORTANT for React
 app.use(express.json());
 
 app.use("/position",PositionRoute);

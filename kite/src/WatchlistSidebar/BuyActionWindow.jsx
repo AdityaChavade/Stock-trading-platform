@@ -9,7 +9,7 @@ const BuyActionWindow = ({ uid, price, action }) => {
   const [qty, setqty] = useState([]);
   const [trigger, setrigger] = useState(price);
   let handlesubmit = async (e) => {
-    e.preventDefault();
+
     try {
       await fetch("http://localhost:3000/order", {
         method: "POST",
@@ -25,6 +25,7 @@ const BuyActionWindow = ({ uid, price, action }) => {
         }),
       });
       closeActionWindow();
+
     } catch (error) {
       console.log(error);
     }
