@@ -1,0 +1,42 @@
+.commodity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px 25px;
+  background: #f5f7fb;
+  border-radius: 10px;
+}
+
+/* LEFT SIDE */
+.commodity-balance {
+  display: flex;
+  flex-direction: column;
+}
+
+.value {
+  font-size: 100px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.label {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* RIGHT SIDE */
+.additional {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.margin-used,
+.account-value {
+  font-size: 14px;
+  color: #374151;
+  margin-bottom: 5px;
+}

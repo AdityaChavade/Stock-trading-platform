@@ -1,0 +1,39 @@
+.holding {
+  width: 100%;
+  padding: 20px 25px;
+  background: #f5f7fb;
+  border-radius: 10px;
+}
+
+/* MAIN ROW */
+.holding-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* EACH BLOCK */
+.current,
+.invested,
+.pnl {
+  display: flex;
+  flex-direction: column;
+}
+
+/* VALUE (NUMBER) */
+.current span:nth-child(2),
+.invested span:nth-child(1),
+.pnl span:nth-child(1) {
+  font-size: 28px;
+  font-weight: 400;
+  color: #111827;
+}
+
+/* LABEL */
+.current span:nth-child(1),
+.invested span:nth-child(2),
+.pnl span:nth-child(2) {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 4px;
+}

@@ -1,0 +1,79 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Main layout */
+.maincontent {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+
+  padding: 16px;
+  background: white ;
+  height: 100vh; /* important */
+}
+
+/* Header */
+.maincontent h1 {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* LEFT SIDE — ONLY THIS SCROLLS */
+.left {
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  background: white;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+/* RIGHT TOP — NO SCROLL, FIT SCREEN */
+.combinethree {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 🔑 critical */
+  gap: 16px;
+
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; /* 🚫 no scroll */
+}
+
+/* RIGHT BOTTOM */
+.holding {
+  grid-column: 2;
+  margin-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .maincontent {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .left {
+    height: auto;
+    max-height: 300px;
+  }
+
+  .combinethree {
+    grid-template-columns: 1fr;
+  }
+
+  .holding {
+    grid-column: 1;
+  }
+}
