@@ -1,4 +1,4 @@
-# 📈 Stock Trading Platform (Kite Clone)
+# 📈 Stock Trading Platform
 
 A full-stack web application replicating the core features of a stock trading dashboard (like Zerodha Kite). This project is built using the MERN stack (MongoDB, Express, React, Node.js) and features a beautiful, responsive user interface.
 
