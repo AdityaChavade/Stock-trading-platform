@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
+    "dev": "vite kite",
+    "build": "vite build kite",
+    "lint": "eslint kite",
+    "preview": "vite preview kite",
     "start:backend": "node backend/index.js",
     "dev:backend": "nodemon backend/index.js"
   },
