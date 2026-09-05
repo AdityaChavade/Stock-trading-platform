@@ -11,19 +11,19 @@ const BuyActionWindow = ({ uid, price, action }) => {
   let handlesubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch("http://localhost:3000/order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      await axios.post(
+        "http://localhost:3000/order",
+        {
           Instruments: uid,
           Type: "CNC",
           Action: action,
           Avg_Price: trigger,
           Qty: qty,
-        }),
-      });
+        },
+        {
+          withCredentials: true,
+        }
+      );
       closeActionWindow();
     } catch (error) {
       console.log(error);

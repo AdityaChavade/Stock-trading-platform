@@ -18,13 +18,11 @@ const Navbar = () => {
         <div className="nav-links">
           <NavLink to="/" end>Dashboard</NavLink>
           <NavLink to="/orders">Orders</NavLink>
-          <NavLink to="/holdings">Holdings</NavLink>
           <NavLink to="/positions">Positions</NavLink>
           <NavLink to="/funds">Funds</NavLink>
           <NavLink to="/holdings">Holdings</NavLink>
           {isLoggedIn ? (
             <>
-              <NavLink to="/holdings">Holdings</NavLink>
               <NavLink to="/logout">Logout</NavLink>
             </>
           ) : (
