@@ -1,85 +1,98 @@
-require("dotenv").config();
+require("dotenv").config({ path: require('path').resolve(__dirname, '../.env') });
 const express = require("express");
-const mongoose = require("mongoose");
-const Holding = require("./model/HoldingModel");
-const Position = require("./model/PositionModel");
-const OrderModel = require("./model/OrderModel");
+const { sequelize, Holding, Order, Position } = require("./models");
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGO_URL;
 const cors = require("cors");
 const PositionRoute = require("./Routes/Position");
 const AuthRoute = require("./Routes/AuthRoute");
+const { userVerification } = require("./Middlewares/AuthMiddleware");
+const cookieParser = require("cookie-parser");
 
 const app = express();
-app.use(cors()); // IMPORTANT for React
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+app.use(cookieParser());
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("hello");
 });
 
-app.get("/holdings", (req, res) => {
-  const newholding = new Holding({
-    name: "BHARTIARTL",
-    qty: 2,
-    avg: 538.05,
-    price: 541.15,
-    net: "+0.58%",
-    day: "+2.99%",
-  });
-  newholding
-    .save()
-    .then((result) => {
-      res.send("holding saved ");
-    })
-    .catch((err) => {
-      console.log("error occured");
-      res.send("error occured ");
+app.get("/holdings", userVerification, async (req, res) => {
+  try {
+    const newholding = await Holding.create({
+      name: "BHARTIARTL",
+      qty: 2,
+      avg: 538.05,
+      price: 541.15,
+      net: "+0.58%",
+      day: "+2.99%",
+      userId: req.user,
     });
+    res.send("holding saved ");
+  } catch (err) {
+    console.log("error occured", err);
+    res.send("error occured ");
+  }
 });
 
 
 
-app.post("/order", (req, res) => {
-  const { Instruments, Type, Avg_Price, Qty } = req.body;
-  const newOrder = new OrderModel({
-    Instrument: Instruments,
-    Type: Type,
-    Avg_Price: Avg_Price,
-    Qty: Qty,
-  });
-  newOrder
-    .save()
-    .then((result) => {
-      console.log("Ordered Submitted !");
-      res.send("ORder saved");
-    })
-    .catch((error) => {
-      res.send("error");
+app.post("/order", userVerification, async (req, res) => {
+  try {
+    const { Instruments, Type, Avg_Price, Qty } = req.body;
+    const newOrder = await Order.create({
+      Instrument: Instruments,
+      Type: Type,
+      Avg_Price: Avg_Price,
+      Qty: Qty,
+      userId: req.user,
     });
+    console.log("Ordered Submitted !");
+    res.send("ORder saved");
+  } catch (error) {
+    res.send("error");
+  }
 });
 
-app.get("/allHoldings", async (req, res) => {
-  let allHoldings = await Holding.find({});
+app.get("/allHoldings", userVerification, async (req, res) => {
+  let allHoldings = await Holding.findAll({ where: { userId: req.user } });
   res.json(allHoldings);
 });
 
-app.get("/allOrders", async (req, res) => {
-  let allOrders = await OrderModel.find({});
+app.get("/allOrders", userVerification, async (req, res) => {
+  let allOrders = await Order.findAll({ where: { userId: req.user } });
   res.json(allOrders);
 });
 
 
-app.get("/deletePositions", async (req, res) => {
-  await Position.deleteMany({});
+app.get("/deletePositions", userVerification, async (req, res) => {
+  await Position.destroy({ where: { userId: req.user } });
   res.send("All positions deleted");
 });
 
-app.use("/position",PositionRoute);
+app.use("/position", userVerification, PositionRoute);
 app.use("/",AuthRoute);
 
-app.listen(3000, () => {
-  console.log("running website !");
-  mongoose.connect(uri);
-  console.log("datbase conneted !");
+const server = app.listen(PORT, () => {
+  console.log(`running website on port ${PORT}!`);
+  sequelize.sync().then(() => {
+    console.log("database connected and models synced!");
+  }).catch((err) => {
+    console.error("Unable to connect to the database:", err);
+  });
+});
+
+server.on('error', (e) => {
+  if (e.code === 'EADDRINUSE') {
+    console.error('Address in use, retrying...');
+  } else {
+    console.error(e);
+  }
 });
