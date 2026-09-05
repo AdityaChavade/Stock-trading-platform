@@ -21,7 +21,7 @@ A full-stack web application replicating the core features of a stock trading da
 
 **Backend:**
 - [Node.js](https://nodejs.org/) & [Express.js](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/) & [Mongoose](https://mongoosejs.com/) (Database & ODM)
+- [Postgres](https://www.mongodb.com/) (Database & ODM)
 - [Passport.js](https://www.passportjs.org/) & [JWT](https://jwt.io/) (Authentication)
 
 ## 🚀 Getting Started
