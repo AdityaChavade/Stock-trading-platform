@@ -29,4 +29,4 @@ export default function WatchListActions({uid, price}) {
       </div>
     </div>
   );
-}
+} 
