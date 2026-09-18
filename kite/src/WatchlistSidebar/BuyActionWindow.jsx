@@ -9,7 +9,7 @@ const BuyActionWindow = ({ uid, price, action }) => {
   const [qty, setqty] = useState([]);
   const [trigger, setrigger] = useState(price);
   let handlesubmit = async (e) => {
-    e.preventDefault();
+
     try {
       await axios.post(
         "http://localhost:3000/order",
@@ -25,6 +25,7 @@ const BuyActionWindow = ({ uid, price, action }) => {
         }
       );
       closeActionWindow();
+
     } catch (error) {
       console.log(error);
     }

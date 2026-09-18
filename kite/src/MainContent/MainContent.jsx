@@ -22,9 +22,7 @@
         </div>
         <div className="right">
           <Navbar></Navbar>
-          <div><h1>hello</h1></div>
           <Outlet />
-          <br></br>
         </div>
       </div>
     );
