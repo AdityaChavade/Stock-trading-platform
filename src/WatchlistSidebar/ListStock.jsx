@@ -2,7 +2,7 @@ import { useState } from "react";
 import WatchListActions from "./WatchListActions";
 import "./liststock.css";
 
-function ListStock({ stock, change, value }) {
+function ListStock({ symbol, change, value }) {
   const isProfit = change >= 0;
   const [showoptions, setoptions] = useState(false);
 
@@ -16,7 +16,7 @@ function ListStock({ stock, change, value }) {
         className="stock-name"
         style={{ color: isProfit ? "#4caf50" : "#e53935" }}
       >
-        {stock}
+        {symbol}
       </span>
 
       <div className="stock-right">
@@ -28,7 +28,7 @@ function ListStock({ stock, change, value }) {
             <span className="stock-value">{value}</span>
           </div>
         ) : (
-          <WatchListActions uid={stock} price={value} />
+          <WatchListActions uid={symbol} price={value} />
         )}
       </div>
     </li>

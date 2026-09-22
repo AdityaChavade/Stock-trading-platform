@@ -1,6 +1,8 @@
 require("dotenv").config({ path: require('path').resolve(__dirname, '../.env') });
 const express = require("express");
-const { sequelize, Holding, Order, Position } = require("./models");
+const { sequelize, Holding, Order, Position, Watchlist, Stock } = require("./models");
+const http = require("http");
+const { Server } = require("socket.io");
 const PORT = process.env.PORT || 3000;
 const uri = process.env.MONGO_URL;
 const cors = require("cors");
@@ -10,9 +12,20 @@ const { userVerification } = require("./Middlewares/AuthMiddleware");
 const cookieParser = require("cookie-parser");
 
 const app = express();
+const httpServer = http.createServer(app);
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://127.0.0.1:5173", "http://127.0.0.1:5174"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  },
+});
+app.set("io", io);
+
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", "http://127.0.0.1:5173", "http://127.0.0.1:5174"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -80,7 +93,52 @@ app.get("/deletePositions", userVerification, async (req, res) => {
 app.use("/position", userVerification, PositionRoute);
 app.use("/",AuthRoute);
 
-const server = app.listen(PORT, () => {
+app.get("/api/watchlist", userVerification, async (req, res) => {
+  try {
+    const watchlist = await Watchlist.findAll({
+      where: {
+        userId: req.user,
+      },
+      include: [
+        {
+          model: Stock,
+        },
+      ],
+    });
+    res.json(watchlist);
+  } catch (error) {
+    console.error("Error fetching watchlist:", error);
+    res.status(500).json({ error: "Failed to fetch watchlist" });
+  }
+});
+
+app.post("/api/update-price", async (req, res) => {
+  try {
+    const { stockId, newPrice } = req.body;
+    
+    // Update price in DB
+    const stock = await Stock.findByPk(stockId);
+    if (!stock) return res.status(404).json({ error: "Stock not found" });
+    
+    stock.price = newPrice;
+    await stock.save();
+
+    // Emit the update event to all connected clients
+    const io = req.app.get("io");
+    io.emit("stockPriceUpdate", {
+      stockId: stock.id,
+      symbol: stock.symbol,
+      price: stock.price
+    });
+
+    res.json({ success: true, stock });
+  } catch (error) {
+    console.error("Error updating price:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+const serverInstance = httpServer.listen(PORT, () => {
   console.log(`running website on port ${PORT}!`);
   sequelize.sync().then(() => {
     console.log("database connected and models synced!");
@@ -89,7 +147,7 @@ const server = app.listen(PORT, () => {
   });
 });
 
-server.on('error', (e) => {
+serverInstance.on('error', (e) => {
   if (e.code === 'EADDRINUSE') {
     console.error('Address in use, retrying...');
   } else {

@@ -26,7 +26,13 @@
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.23.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.8"
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-draggable": "^4.7.2",
+    "react-router-dom": "^7.18.4",
+    "sequelize": "^6.37.8",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3"
   },
   "description": "A full-stack web application replicating the core features of a stock trading dashboard (like Zerodha Kite). This project is built using the MERN stack (MongoDB, Express, React, Node.js) and features a beautiful, responsive user interface.",
   "main": "eslint.config.js",

@@ -1,68 +1,79 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  box-sizing: border-box;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
+html,
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: 'Times New Roman', Times, serif;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Main layout */
+.maincontent {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 16px;
+
+  padding: 16px;
+  background: white ;
+  height: 100vh; /* important */
 }
 
-button {
+/* Header */
+.maincontent h1 {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* LEFT SIDE — ONLY THIS SCROLLS */
+.left {
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  background: white;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  padding: 8px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* RIGHT TOP — NO SCROLL, FIT SCREEN */
+.combinethree {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 🔑 critical */
+  gap: 16px;
+
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden; /* 🚫 no scroll */
+}
+
+/* RIGHT BOTTOM */
+.holding {
+  grid-column: 2;
+  margin-top: 16px;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .maincontent {
+    grid-template-columns: 1fr;
+    height: auto;
   }
-  a:hover {
-    color: #747bff;
+
+  .left {
+    height: auto;
+    max-height: 300px;
   }
-  button {
-    background-color: #f9f9f9;
+
+  .combinethree {
+    grid-template-columns: 1fr;
+  }
+
+  .holding {
+    grid-column: 1;
   }
 }
