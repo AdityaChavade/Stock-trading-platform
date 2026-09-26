@@ -21,6 +21,11 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  Funds: {
+    type: DataTypes.INTEGER,
+    defaultValue: 1000000,
+    allowNull: false,
+  }
 }, {
   hooks: {
     beforeCreate: async (user) => {

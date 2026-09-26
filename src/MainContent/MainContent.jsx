@@ -1,33 +1,37 @@
-  import Navbar from "../Navbar";
-  import SearchBar from "../WatchlistSidebar/SearchBar";
-  import Watchlistitem from "../WatchlistSidebar/WatchlistItem";
-  import Commodity from "./Commodity";
-  import Dashboard from "./Dashboard";
-  import Equity from "./Equity";
-  import Holding from "./Holding";
-  import HoldingBarGraph from "./HoldingBarGraph";
-  import Portfolio from "./Portfolio";
-  import { Outlet } from "react-router-dom";
+import Navbar from "../Navbar";
+import Watchlistitem from "../WatchlistSidebar/WatchlistItem";
+import Dashboard from "./Dashboard";
+import { Outlet } from "react-router-dom";
+import { useState } from "react";
 
-  import "./maincontent.css";
-  import { GeneralContext } from "../WatchlistSidebar/GeneralContext";
+import "./maincontent.css";
+import { GeneralContext } from "../WatchlistSidebar/GeneralContext";
+import { AccountProvider } from "../context/accountcontext";
 
-  function MainContent() {
-    return (
+function MainContent() {
+  const [isWatchlistOpen, setIsWatchlistOpen] = useState(false);
+
+  return (
+    <AccountProvider>
       <div className="maincontent">
-        <div className="left">
+        <div className={`left ${isWatchlistOpen ? "open" : ""}`}>
           <GeneralContext>
             <Watchlistitem/>
           </GeneralContext>
         </div>
         <div className="right">
-          <Navbar></Navbar>
-          <div><h1>hello</h1></div>
+          <Navbar 
+            toggleWatchlist={() => setIsWatchlistOpen(!isWatchlistOpen)} 
+            isWatchlistOpen={isWatchlistOpen} 
+          />
+
           <Outlet />
           <br></br>
+          <br></br> {/* Extra space for bottom nav */}
         </div>
       </div>
-    );
-  }
+    </AccountProvider>
+  );
+}
 
-  export default MainContent;
+export default MainContent;

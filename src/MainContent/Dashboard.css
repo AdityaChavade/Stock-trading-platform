@@ -2,60 +2,136 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  gap: 16px;
+  padding: 24px;
+  gap: 24px;
   height: 100%;
   overflow: auto;
   min-width: 0;
+  background-color: #fcfcfc;
 }
 
-/* THREE CARDS SECTION */
-.combinethree {
+.dashboard-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333333;
+  margin: 0;
+}
+
+/* CARDS GRID */
+.dashboard-cards-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  background: #fff;
-  border: 1px solid #eee;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
 
-/* CARDS */
-.equity,
-.commodity,
-.portfolio {
-  padding: clamp(16px, 1.2vw, 20px);
-  border-right: 1px solid #eee;
-  min-width: 0;
+@media (max-width: 600px) {
+  .dashboard {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .dashboard-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .dashboard-card {
+    padding: 12px 14px;
+  }
+
+  .card-label {
+    font-size: 11px;
+    letter-spacing: 0.3px;
+  }
+
+  .card-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .card-value {
+    font-size: 18px;
+  }
+
+  .card-subtext {
+    font-size: 10px;
+  }
 }
 
-/* REMOVE LAST BORDER */
-.portfolio {
-  border-right: none;
+/* CARD CONTAINER */
+.dashboard-card {
+  background: #ffffff;
+  border: 1px solid #eef0f3;
+  border-radius: 12px;
+  padding: 20px 22px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease-in-out;
+  position: relative;
+  overflow: hidden;
 }
 
-/* HOLDING SECTION */
-.holding {
-  background: #fff;
-  padding: 20px;
-  border: 1px solid #eee;
-  min-width: 0;
-}
 
-.holding h1 {
+/* CARD HEADER */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 12px;
-  font-size: 18px;
-  font-weight: 500;
 }
 
-/* GRAPH WRAPPER */
-.dashboard canvas {
-  width: 100% !important;
-  max-height: 320px;
+.card-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
 }
 
-/* TEXT SAFETY */
-.equity *,
-.commodity *,
-.portfolio *,
-.holding * {
-  min-width: 0;
-  word-break: break-word;
+/* CARD ICON WRAPPER */
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+}
+
+.icon-funds {
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.icon-account {
+  background: #ecfdf5;
+  color: #10b981;
+}
+
+.icon-orders {
+  background: #fff7ed;
+  color: #f97316;
+}
+
+.icon-positions {
+  background: #f0f9ff;
+  color: #0284c7;
+}
+
+/* CARD VALUE */
+.card-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.5px;
+}
+
+/* SUBTEXT */
+.card-subtext {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 400;
 }

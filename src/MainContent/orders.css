@@ -1,41 +1,51 @@
-/* Orders.css - professional & compact */
+/* Orders.css - clean borderless */
 
 .order-table {
   width: 95%;
   margin: 20px auto;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Inter', 'Roboto', sans-serif;
 }
 
 .orderstable {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #ccc;
   font-size: 14px;
 }
 
 .orderstable th,
 .orderstable td {
-  padding: 6px 8px;          /* tight spacing */
+  padding: 12px 16px;
   text-align: left;
-  border-bottom: 1px solid #ccc;
+}
+
+.orderstable tr {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.2s;
+}
+
+.orderstable tr:hover {
+  background-color: #f8fafc;
 }
 
 .orderstable thead {
-  background-color: #f5f5f5; /* subtle header color */
-  color: #000;
-  font-weight: 600;
-  border-bottom: 2px solid #ccc;
+  background-color: #ffffff;
+  color: #64748b;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #e2e8f0;
 }
 
-.orderstable tr:last-child td {
-  border-bottom: none;       /* remove last border for clean look */
+.orderstable tr:last-child {
+  border-bottom: none;
 }
 
 /* Optional: responsive */
 @media (max-width: 600px) {
   .orderstable th,
   .orderstable td {
-    padding: 4px 6px;
-    font-size: 12px;
+    padding: 8px 10px;
+    font-size: 13px;
   }
 }

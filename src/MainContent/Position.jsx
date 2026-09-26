@@ -4,7 +4,7 @@ function Positions() {
   let [positions, setpositions] = useState([]);
   useEffect(() => {
     let allpositions = axios
-      .get("http://localhost:3000/allPositions")
+      .get("http://localhost:3000/position/allPositions", { withCredentials: true })
       .then((result) => {
         setpositions(result.data);
       })

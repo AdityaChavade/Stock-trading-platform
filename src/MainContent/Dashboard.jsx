@@ -1,27 +1,17 @@
-import Equity from "./Equity";
-import Commodity from "./Commodity";
-import Portfolio from "./Portfolio";
-import Holding from "./Holding";
-import HoldingBarGraph from "./HoldingBarGraph";
+import TotalFunds from "./TotalFunds";
+import AccountValue from "./AccountValue";
+import TotalOrders from "./TotalOrders";
+import TotalPositions from "./TotalPositions";
+import "./dashboard.css";
+
 function Dashboard() {
   return (
     <div className="dashboard">
-      <br></br>
-      <h1>Hi User</h1>
-      <div className="combinethree">
-
-        <Equity />
-        <Commodity />
-        <Portfolio />
-        
+      <h1 className="dashboard-title">Dashboard Summary</h1>
+      <div className="dashboard-cards-grid">
+        <TotalFunds />
+        <AccountValue />
       </div>
-
-      <div className="holding">
-        <h1>Holdings</h1>
-        <Holding />
-      </div>
-      <br></br>
-      <HoldingBarGraph></HoldingBarGraph>
     </div>
   );
 }

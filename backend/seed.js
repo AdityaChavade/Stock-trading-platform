@@ -1,11 +1,13 @@
+require("dotenv").config({ path: require('path').resolve(__dirname, '../.env') });
 const { sequelize, Stock, User, Watchlist } = require("./models");
 
 async function seedDatabase() {
   try {
     await sequelize.authenticate();
-    console.log("Connected to database for seeding...");
+    await sequelize.sync({ alter: true });
+    console.log("Connected to database and synced tables...");
 
-    // 1. Create/Ensure some dummy stocks exist
+    // 1. Create/Ensure 10 stocks exist in the database
     const dummyStocks = [
       { symbol: "RELIANCE", companyName: "Reliance Industries", price: 2950.0 },
       { symbol: "TCS", companyName: "Tata Consultancy Services", price: 3820.5 },
@@ -21,51 +23,48 @@ async function seedDatabase() {
 
     const createdStocks = [];
     for (const stockData of dummyStocks) {
-      const randomPrice = stockData.price + (Math.random() * 50 - 25);
-      const [stock] = await Stock.findOrCreate({
+      const [stock, created] = await Stock.findOrCreate({
         where: { symbol: stockData.symbol },
         defaults: {
           companyName: stockData.companyName,
-          price: parseFloat(randomPrice.toFixed(2)),
+          price: stockData.price,
         },
       });
+      
+      // Update price and companyName to make sure stock is up to date
+      stock.companyName = stockData.companyName;
+      stock.price = stockData.price;
+      await stock.save();
+
       createdStocks.push(stock);
     }
+
+    console.log(`Ensured ${createdStocks.length} stocks in database.`);
 
     // 2. Fetch all users from the database
     const users = await User.findAll();
     
     if (users.length === 0) {
-      console.log("No users found in the database. Create some users first!");
+      console.log("No users found in database.");
       process.exit(0);
     }
 
-    console.log(`Found ${users.length} users. Assigning random watchlists...`);
+    console.log(`Found ${users.length} users. Adding 10 stocks to each user's watchlist...`);
 
-    // 3. Loop through every user and give them a random number of stocks
+    // 3. Add all 10 stocks to every user's watchlist
     for (const user of users) {
-      // Pick a random number of stocks between 2 and 7
-      const numStocks = Math.floor(Math.random() * 6) + 2;
-      
-      // Shuffle the stocks array so they get a random selection
-      const shuffledStocks = [...createdStocks].sort(() => 0.5 - Math.random());
-      
-      // Take the first 'numStocks' from the shuffled array
-      const selectedStocks = shuffledStocks.slice(0, numStocks);
-
-      for (const stock of selectedStocks) {
+      for (const stock of createdStocks) {
         await Watchlist.findOrCreate({
           where: { userId: user.id, stockId: stock.id },
         });
       }
-      
-      console.log(`Assigned ${numStocks} random stocks to user ${user.email}`);
+      console.log(`Assigned all 10 stocks to user ${user.email}`);
     }
 
-    console.log("✅ Seeding completed successfully!");
+    console.log("✅ Watchlist and Stock database updated successfully!");
     process.exit(0);
   } catch (err) {
-    console.error("❌ Seeding failed:", err);
+    console.error("❌ Operation failed:", err);
     process.exit(1);
   }
 }

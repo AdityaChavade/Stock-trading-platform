@@ -1,6 +1,6 @@
 require("dotenv").config({ path: require('path').resolve(__dirname, '../.env') });
 const express = require("express");
-const { sequelize, Holding, Order, Position, Watchlist, Stock } = require("./models");
+const { sequelize, Holding, Order, Position, Watchlist, Stock,User } = require("./models");
 const http = require("http");
 const { Server } = require("socket.io");
 const PORT = process.env.PORT || 3000;
@@ -82,6 +82,19 @@ app.get("/allHoldings", userVerification, async (req, res) => {
 app.get("/allOrders", userVerification, async (req, res) => {
   let allOrders = await Order.findAll({ where: { userId: req.user } });
   res.json(allOrders);
+});
+
+app.get("/getFunds", userVerification, async (req, res) => {
+  try {
+    const fun = await User.findByPk(req.user);
+    if (!fun) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ funds: fun.Funds });
+  } catch (error) {
+    console.error("Error fetching funds:", error);
+    res.status(500).json({ error: "Failed to fetch funds" });
+  }
 });
 
 

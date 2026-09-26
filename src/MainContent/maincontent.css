@@ -111,8 +111,21 @@ body {
     height: auto;
   }
 
+  /* Watchlist Overlay on Mobile */
   .left {
-    max-height: 260px;
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 60px); /* 60px reserved for bottom nav */
+    max-height: calc(100vh - 60px);
+    z-index: 500;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .left.open {
+    transform: translateX(0);
   }
 
   .combinethree {
@@ -125,3 +138,5 @@ body {
     border-bottom: 1px solid #eee;
   }
 }
+
+

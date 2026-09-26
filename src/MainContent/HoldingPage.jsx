@@ -7,7 +7,7 @@ function HoldingPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/allHoldings")
+      .get("http://localhost:3000/allHoldings", { withCredentials: true })
       .then((result) => {
         console.log(result.data)
         setHoldings(result.data);
