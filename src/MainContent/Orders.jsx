@@ -14,6 +14,20 @@ function Orders() {
         console.log(error);
       });
   }, []);
+  let cancelOrder = async (id) => {
+    try {
+      await axios.post(
+        `http://localhost:3000/cancelOrder/${id}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      setorders((prevOrders) => prevOrders.filter((order) => order.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="order-table">
       <table className="orderstable">
@@ -23,15 +37,19 @@ function Orders() {
             <th>Type</th>
             <th>Price</th>
             <th>Qty</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {orders.map((item) => (
-            <tr key={item._id}>
+            <tr key={item.id}>
               <td>{item.Instrument}</td>
               <td>{item.Type}</td>
               <td>{item.Avg_Price}</td>
               <td>{item.Qty}</td>
+              <td>
+                <button className="btn-danger" onClick={() => cancelOrder(item.id)}> Cancel</button>
+              </td>
             </tr>
           ))}
         </tbody>

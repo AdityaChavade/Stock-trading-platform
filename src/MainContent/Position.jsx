@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 function Positions() {
+
   let [positions, setpositions] = useState([]);
   useEffect(() => {
     let allpositions = axios
@@ -12,6 +13,15 @@ function Positions() {
         console.log("error", error);
       });
   }, []);
+  let sellPosition = (id) => {
+    axios.delete(`http://localhost:3000/position/${id}`, { withCredentials: true })
+      .then((result) => {
+        setpositions(result.data);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }
   return (
     <div className="posistion">
       <h1>Holings : {positions.length}</h1>
@@ -31,19 +41,38 @@ function Positions() {
             </tr>
           </thead>
 
-            <tbody>
-              {positions.map((stock, idx) => (
-                <tr key={idx}>
-                  <td>{stock.Instrument}</td>
-                  <td>{stock.Pro_Type}</td>
-                  <td>{stock.Qty}</td>
-                  <td>{stock.LTP}</td>
-                  <td>{stock.Curr_val}</td>
-                  <td>{stock.PL}</td>
-                  <td>{stock.Chg}</td>
-                </tr>
-              ))}
-            </tbody>
+          <tbody>
+            {positions.map((stock, idx) => (
+              <tr key={idx}>
+                <td>{stock.Instrument}</td>
+                <td>{stock.Pro_Type}</td>
+                <td>{stock.Qty}</td>
+                <td>{stock.LTP}</td>
+                <td>{stock.Curr_val}</td>
+                <td>{stock.PL}</td>
+                <td>{stock.Chg}</td>
+               <td>
+  <button 
+    className="btn"
+    style={{
+      backgroundColor: "#09a6ffff",  
+      color: "white",              
+      border: "none",
+      padding: "5px 15px",
+      borderRadius: "4px",
+      cursor: "pointer",
+      fontSize: "13px",
+      fontWeight: 600
+    }}
+    onClick={() => sellPosition(stock._id)}
+  >
+    SELL
+  </button>
+</td>
+
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>
