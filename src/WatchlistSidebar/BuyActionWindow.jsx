@@ -4,26 +4,50 @@ import Draggable from 'react-draggable';
 import "./buyaction.css";
 import axios from "axios";
 
+import { useAccount } from "../context/accountcontext";
+
 const BuyActionWindow = ({ uid, price, action }) => {
   const { closeActionWindow } = useContext(Context);
-  const [qty, setqty] = useState([]);
+  const { refetchAccountData } = useAccount();
+  const [qty, setqty] = useState(1);
+  const [orderType, setOrderType] = useState("MARKET"); // "MARKET" or "LIMIT"
   const [trigger, setrigger] = useState(price);
+
   let handlesubmit = async (e) => {
     e.preventDefault();
+    const finalPrice = orderType === "MARKET" ? price : trigger;
     try {
-      await axios.post(
-        "http://localhost:3000/order",
-        {
-          Instruments: uid,
-          Type: "CNC",
-          Action: action,
-          Avg_Price: trigger,
-          Qty: qty,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      if (orderType === "MARKET") {
+        await axios.post(
+          "http://localhost:3000/position/position",
+          {
+            Instrument: uid,
+            Pro_Type: "CNC",
+            Action: action || "BUY",
+            LTP: Number(finalPrice),
+            Qty: Number(qty),
+          },
+          {
+            withCredentials: true,
+          }
+        );
+      } else {
+        await axios.post(
+          "http://localhost:3000/order",
+          {
+            Instruments: uid,
+            Type: "CNC",
+            Action: action || "BUY",
+            OrderType: orderType,
+            Avg_Price: Number(finalPrice),
+            Qty: Number(qty),
+          },
+          {
+            withCredentials: true,
+          }
+        );
+      }
+      refetchAccountData();
       closeActionWindow();
     } catch (error) {
       console.log(error);
@@ -33,12 +57,32 @@ const BuyActionWindow = ({ uid, price, action }) => {
     <Draggable handle=".window-header">
       <div className="buy-window">
         <div className={`window-header ${action === "Sell" ? "sell-header" : "buy-header"}`}>
-          <h2 className="window-title">{action}: {uid}</h2>
+          <h2 className="window-title">{action || "BUY"}: {uid}</h2>
           <span className="close-icon" onClick={closeActionWindow}>&times;</span>
         </div>
         <form className={`buy-form ${action === "Sell" ? "sell-mode" : "buy-mode"}`} onSubmit={handlesubmit}>
-          <div className="price-info">
+          <div className="price-info" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span>LTP : ₹{price}</span>
+            <div className="order-type-selector">
+              <label style={{ marginRight: '8px', fontSize: '13px' }}>
+                <input
+                  type="radio"
+                  name="orderType"
+                  value="MARKET"
+                  checked={orderType === "MARKET"}
+                  onChange={() => setOrderType("MARKET")}
+                /> Market
+              </label>
+              <label style={{ fontSize: '13px' }}>
+                <input
+                  type="radio"
+                  name="orderType"
+                  value="LIMIT"
+                  checked={orderType === "LIMIT"}
+                  onChange={() => setOrderType("LIMIT")}
+                /> Limit
+              </label>
+            </div>
           </div>
 
           <div className="input-group">
@@ -47,7 +91,8 @@ const BuyActionWindow = ({ uid, price, action }) => {
               className="price-input"
               type="number"
               placeholder="Price"
-              value={trigger}
+              value={orderType === "MARKET" ? price : trigger}
+              disabled={orderType === "MARKET"}
               onChange={(e) => setrigger(Number(e.target.value))}
             />
           </div>

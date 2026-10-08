@@ -23,7 +23,6 @@ const Navbar = ({ toggleWatchlist, isWatchlistOpen }) => {
           <NavLink to="/orders" onClick={() => isWatchlistOpen && toggleWatchlist()}>Orders</NavLink>
           <NavLink to="/positions" onClick={() => isWatchlistOpen && toggleWatchlist()}>Positions</NavLink>
           <NavLink to="/funds" onClick={() => isWatchlistOpen && toggleWatchlist()}>Funds</NavLink>
-          <NavLink to="/holdings" onClick={() => isWatchlistOpen && toggleWatchlist()}>Holdings</NavLink>
         </div>
 
         {/* Auth / Profile */}

@@ -23,7 +23,7 @@ const User = sequelize.define('User', {
   },
   Funds: {
     type: DataTypes.INTEGER,
-    defaultValue: 1000000,
+    defaultValue: 100000,
     allowNull: false,
   }
 }, {

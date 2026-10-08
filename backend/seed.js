@@ -49,19 +49,70 @@ async function seedDatabase() {
       process.exit(0);
     }
 
-    console.log(`Found ${users.length} users. Adding 10 stocks to each user's watchlist...`);
+    console.log(`Found ${users.length} users. Populating watchlists, holdings, positions, and orders...`);
 
-    // 3. Add all 10 stocks to every user's watchlist
+    const { Holding, Position, Order, TodaysAccountValue } = require("./models");
+
     for (const user of users) {
+      // 3. Add watchlists
       for (const stock of createdStocks) {
         await Watchlist.findOrCreate({
           where: { userId: user.id, stockId: stock.id },
         });
       }
-      console.log(`Assigned all 10 stocks to user ${user.email}`);
+
+      // 4. Add sample Holdings
+      await Holding.findOrCreate({
+        where: { userId: user.id, name: "RELIANCE" },
+        defaults: { qty: 10, avg: 2800.0, price: 2950.0, net: "+5.35%", day: "+1.20%" }
+      });
+      await Holding.findOrCreate({
+        where: { userId: user.id, name: "TCS" },
+        defaults: { qty: 5, avg: 3700.0, price: 3820.5, net: "+3.25%", day: "-0.40%" }
+      });
+      await Holding.findOrCreate({
+        where: { userId: user.id, name: "INFY" },
+        defaults: { qty: 15, avg: 1450.0, price: 1510.8, net: "+4.19%", day: "+0.85%" }
+      });
+
+      // 5. Add sample Positions
+      await Position.findOrCreate({
+        where: { userId: user.id, Instrument: "TATAMOTORS" },
+        defaults: { Pro_Type: "CNC", Qty: 20, LTP: 890.3, Curr_val: 17806.0, PL: 350.0, Chg: 1.5 }
+      });
+      await Position.findOrCreate({
+        where: { userId: user.id, Instrument: "HDFCBANK" },
+        defaults: { Pro_Type: "CNC", Qty: 10, LTP: 1640.2, Curr_val: 16402.0, PL: -120.0, Chg: -0.7 }
+      });
+
+      // 6. Add sample Orders
+      await Order.findOrCreate({
+        where: { userId: user.id, Instrument: "ICICIBANK" },
+        defaults: { Type: "CNC", Avg_Price: 1040.6, Qty: 10 }
+      });
+      await Order.findOrCreate({
+        where: { userId: user.id, Instrument: "SBIN" },
+        defaults: { Type: "CNC", Avg_Price: 630.4, Qty: 25 }
+      });
+
+      // 7. Add sample 7-day historical Account Values for smooth chart display
+      const today = new Date();
+      for (let i = 7; i >= 0; i--) {
+        const pastDate = new Date();
+        pastDate.setDate(today.getDate() - i);
+        const dateStr = pastDate.toISOString().split("T")[0];
+        const randomVal = 1000000 + Math.floor(Math.sin(i) * 15000 + i * 2000);
+
+        await TodaysAccountValue.findOrCreate({
+          where: { userId: user.id, date: dateStr },
+          defaults: { totalValue: randomVal, cashBalance: user.Funds, investedAmount: randomVal - user.Funds }
+        });
+      }
+
+      console.log(`Assigned sample data for user ${user.email}`);
     }
 
-    console.log("✅ Watchlist and Stock database updated successfully!");
+    console.log("✅ Watchlist, Holdings, Positions, and History seeded successfully!");
     process.exit(0);
   } catch (err) {
     console.error("❌ Operation failed:", err);
