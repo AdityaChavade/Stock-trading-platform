@@ -30,18 +30,8 @@ A full-stack, real-time stock trading application inspired by Zerodha Kite. Buil
   - If `Qty` falls to `0` or below, the position record is automatically destroyed/closed.
   - If no position exists: creates a new `Position` entry linked to the authenticated user.
 
-#### **Limit Orders & Automatic Price Matching Execution**
-- Saved in the `Order` table with order parameters (`Instrument`, `Type`, `Action`, `Avg_Price`, `Qty`).
-- **Price Trigger Matching Engine (`matchPendingOrders`)**:
-  - Every time a stock price updates (via real-time feed or `/api/update-price`), the matching engine queries all pending limit orders for that instrument.
-  - **BUY Limit Match**: Triggered when `current_price <= order.target_price`.
-  - **SELL Limit Match**: Triggered when `current_price >= order.target_price`.
-- **Execution Workflow**:
-  1. Validates available `user.Funds` for BUY orders.
-  2. Updates `user.Funds` balance automatically.
-  3. Updates or creates an active `Position` for the user.
-  4. Deletes the fulfilled `Order` record from the database.
-  5. Emits an `orderExecuted` Socket.io event to notify the UI in real-time.
+#### **Limit Orders**
+- Saved as `PENDING` orders in the `Order` database table awaiting price trigger matching.
 
 ---
 
