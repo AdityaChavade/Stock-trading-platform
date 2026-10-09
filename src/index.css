@@ -11,6 +11,16 @@ body {
 }
 
 /* Main layout */
+.gain {
+  color: #25d366;
+  font-weight: 500;
+}
+
+.loss {
+  color: #df514c;
+  font-weight: 500;
+}
+
 .maincontent {
   display: grid;
   grid-template-columns: 260px 1fr;
@@ -58,22 +68,29 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 1000px) {
+@media (max-width: 768px) {
   .maincontent {
     grid-template-columns: 1fr;
     height: auto;
+    padding: 8px;
   }
 
   .left {
     height: auto;
-    max-height: 300px;
+    max-height: 350px;
   }
 
   .combinethree {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 
   .holding {
     grid-column: 1;
+    margin-top: 12px;
+  }
+
+  table {
+    width: 100%;
   }
 }

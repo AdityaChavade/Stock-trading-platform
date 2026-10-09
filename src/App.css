@@ -45,3 +45,58 @@ body {
   padding: 2rem; /* Breathing room around the text and charts */
   overflow-y: auto; /* Allows scrolling only inside the dashboard */
 }
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .app-container {
+    height: auto;
+    overflow: auto;
+  }
+
+  .main-wrapper {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .sidebar-container {
+    width: 100%;
+    height: auto;
+    max-height: 350px;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .content-container {
+    padding: 0.5rem;
+    overflow-x: hidden;
+  }
+
+  /* Compact table styling so contents fit without horizontal scrolling */
+  .table-data,
+  .order-table {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .table-data table,
+  .order-table table {
+    width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+  }
+
+  .table-data th,
+  .table-data td,
+  .order-table th,
+  .order-table td {
+    padding: 4px 6px !important;
+    font-size: 11px !important;
+    text-align: left;
+  }
+
+  .table-data button,
+  .order-table button {
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+  }
+}
