@@ -49,23 +49,12 @@ function Positions() {
       );
     });
 
-    // 3. Listen for direct net PnL broadcasts if sent
-    socket.on("positionPnLUpdate", (data) => {
-      // Keep individual positions synced while letting netPnL reflect immediately if provided
-    });
-
-    // 4. Cleanup on unmount
+    // 3. Cleanup on unmount
     return () => {
       socket.off("stockPriceUpdate");
-      socket.off("positionPnLUpdate");
       socket.disconnect();
     };
   }, []);
-
-  // Compute total net P&L across all positions
-  const totalPnL = positions.reduce((acc, curr) => acc + (Number(curr.PL) || 0), 0);
-  const isProfit = totalPnL >= 0;
-
   let sellPosition = (stock) => {
     axios
       .post(
@@ -88,20 +77,7 @@ function Positions() {
   };
   return (
     <div className="posistion">
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-        <h1 style={{ margin: 0 }}>Positions ({positions.length})</h1>
-        <h2 style={{ margin: 0, fontSize: "18px", color: "#666" }}>
-          Total P&L:{" "}
-          <span
-            style={{
-              fontWeight: "bold",
-              color: isProfit ? "#4caf50" : "#df514c",
-            }}
-          >
-            {isProfit ? `+₹${totalPnL.toFixed(2)}` : `-₹${Math.abs(totalPnL).toFixed(2)}`}
-          </span>
-        </h2>
-      </div>
+      <h1>Positions : {positions.length}</h1>
 
       <div className="table-data">
         <table>
