@@ -104,3 +104,82 @@ npm run dev
 ```
 
 Visit `http://localhost:5173` in your browser.
+
+
+
+ER Diagram 
+## 🗄️ Database Entity-Relationship (ER) Model
+
+```mermaid
+erDiagram
+    %% Entities Definition
+
+    User {
+        UUID id PK "Primary Key"
+        string email "Unique"
+        string username
+        string password "Hashed bcrypt"
+        float Funds "Default: 100000"
+    }
+
+    Stock {
+        UUID id PK "Primary Key"
+        string symbol UK "Unique Ticker (e.g. AAPL, INFY)"
+        string companyName "Display Name"
+        float price "Live Market LTP"
+    }
+
+    Position {
+        UUID id PK "Primary Key"
+        string Instrument FK "Maps to Stock.symbol"
+        string Pro_Type "CNC or MIS (Default: CNC)"
+        int Qty "Current Open Quantity"
+        float Avg_Price "Weighted Average Buy Price"
+        UUID userId FK "Foreign Key to User"
+    }
+
+    Order {
+        UUID id PK "Primary Key"
+        string Instruments "Stock Symbol"
+        string Type "CNC or MIS"
+        string Action "BUY or SELL"
+        string OrderType "MARKET or LIMIT"
+        float Avg_Price "Execution or Trigger Price"
+        int Qty "Order Quantity"
+        UUID userId FK "Foreign Key to User"
+    }
+
+    Holding {
+        UUID id PK "Primary Key"
+        string name "Stock Symbol / Name"
+        int qty "Long-term Quantity"
+        float avg "Average Cost"
+        float price "Current Price"
+        string net "Net % Change"
+        string day "Day % Change"
+        UUID userId FK "Foreign Key to User"
+    }
+
+    Watchlist {
+        UUID id PK "Primary Key"
+        UUID userId FK "Foreign Key to User"
+        UUID stockId FK "Foreign Key to Stock"
+    }
+
+    TodaysAccountValue {
+        UUID id PK "Primary Key"
+        float value "Total Equity Snapshot"
+        UUID userId FK "Foreign Key to User"
+    }
+
+    %% Relationships & Cardinalities (Crow's Foot Notation)
+
+    User ||--o{ Order : "places"
+    User ||--o{ Position : "holds"
+    User ||--o{ Holding : "owns"
+    User ||--o{ Watchlist : "creates"
+    User ||--o{ TodaysAccountValue : "records"
+
+    Stock ||--o{ Watchlist : "included_in"
+    Stock ||--o{ Position : "referenced_by_symbol"
+
