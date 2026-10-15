@@ -17,7 +17,8 @@ function Watchlistitem() {
       .then((res) => {
         const mappedStocks = res.data.map((entry) => ({
           id: entry.Stock.id,
-          stock: entry.Stock.companyName || entry.Stock.symbol,
+          stock: entry.Stock.symbol,
+          companyName: entry.Stock.companyName,
           value: entry.Stock.price,
           change: 0 // Default change
         }));
@@ -35,11 +36,12 @@ function Watchlistitem() {
     // 3. Listen for price updates
     socket.on("stockPriceUpdate", (data) => {
       setWatchlist((prevWatchlist) =>
-        prevWatchlist.map((item) =>
-          item.id === data.stockId
-            ? { ...item, value: data.price }
-            : item
-        )
+        prevWatchlist.map((item) => {
+          const isMatch =
+            item.id === data.stockId ||
+            (item.stock && data.symbol && item.stock.toUpperCase() === data.symbol.toUpperCase());
+          return isMatch ? { ...item, value: data.price } : item;
+        })
       );
     });
 

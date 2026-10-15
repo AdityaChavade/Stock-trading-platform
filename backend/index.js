@@ -53,6 +53,19 @@ app.get("/api/accountvalue", userVerification, async (req, res) => {
   }
 });
 
+const { getMarketOverview } = require("./services/MarketDataService");
+
+app.get("/api/market-overview", (req, res) => {
+  try {
+    const range = req.query.range || "1Y";
+    const overview = getMarketOverview(range);
+    res.json(overview);
+  } catch (error) {
+    console.error("Error fetching market overview:", error);
+    res.status(500).json({ error: "Failed to fetch market overview" });
+  }
+});
+
 app.get("/", (req, res) => {
   res.send("hello");
 });

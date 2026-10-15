@@ -39,7 +39,7 @@
     "socket.io-client": "^4.8.3"
   },
   "description": "A full-stack web application replicating the core features of a stock trading dashboard (like Zerodha Kite). This project is built using the MERN stack (MongoDB, Express, React, Node.js) and features a beautiful, responsive user interface.",
-  "main": "eslint.config.js",
+  "main": "backend/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AdityaChavade/Stock-trading-platform.git"
@@ -52,7 +52,12 @@
   },
   "homepage": "https://github.com/AdityaChavade/Stock-trading-platform#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@vitejs/plugin-react": "^6.1.1",
+    "eslint": "^10.12.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.13.0",
     "vite": "^8.2.2"
   }
 }

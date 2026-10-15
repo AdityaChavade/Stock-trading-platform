@@ -1,56 +1,86 @@
+
 /* App.css */
 
-/* Global Reset (Optional but recommended if not in index.css) */
+/* ───── Global Reset ───── */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color:white;
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  background: #ffffff !important;
   color: #444444;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  border: none;
+  box-shadow: none;
 }
 
-/* Main Application Layout */
+/* ───── Main Application Layout ───── */
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Full viewport height */
-  overflow: hidden; /* Prevent whole-page scrolling */
+  height: 100vh;
+  overflow: hidden;
+  background: #ffffff;
+  border: none;
+  box-shadow: none;
 }
 
-/* The split area below the Navbar */
+/* ───── Main Content Wrapper ───── */
 .main-wrapper {
   display: flex;
-  flex: 1; /* Takes up all remaining height below navbar */
-  overflow: hidden; /* Keeps scrolling contained inside the child columns */
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: #ffffff;
+  border: none;
+  box-shadow: none;
 }
 
-/* Left Column: Watchlist Sidebar */
+/* ───── Left Sidebar ───── */
 .sidebar-container {
-  width: 380px; /* Fixed width like in the Kite platform */
-  border-right: 1px solid white; /* Subtle vertical gray line */
+  width: 380px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  overflow-y: auto; /* Allows scrolling only inside the watchlist */
+  background: #ffffff;
+  border: none;
+  box-shadow: none;
+  overflow-y: auto;
 }
 
-/* Right Column: Dashboard Data */
+/* ───── Right Dashboard ───── */
 .content-container {
-  flex: 1; /* Takes up all the remaining width on the right */
-  background-color:white;
-  padding: 2rem; /* Breathing room around the text and charts */
-  overflow-y: auto; /* Allows scrolling only inside the dashboard */
+  flex: 1;
+  min-width: 0;
+  background: #ffffff;
+  border: none;
+  box-shadow: none;
+  padding: 2rem;
+  overflow-y: auto;
 }
 
-/* Mobile Responsive Adjustments */
+/* ───── Remove Decorative Shadows and Borders ───── */
+.market-overview-card,
+.market-overview-header,
+.market-overview-chart-container {
+  background: #ffffff;
+  border: none;
+  box-shadow: none;
+}
+
+/* ───── Mobile Responsive Layout ───── */
 @media (max-width: 768px) {
   .app-container {
     height: auto;
-    overflow: auto;
+    min-height: 100vh;
+    overflow: visible;
   }
 
   .main-wrapper {
@@ -62,8 +92,7 @@ body {
     width: 100%;
     height: auto;
     max-height: 350px;
-    border-right: none;
-    border-bottom: 1px solid #eee;
+    border: none;
   }
 
   .content-container {
@@ -71,11 +100,15 @@ body {
     overflow-x: hidden;
   }
 
-  /* Compact table styling so contents fit without horizontal scrolling */
+  /* Compact Tables */
   .table-data,
   .order-table {
     width: 100%;
-    overflow-x: hidden;
+    max-width: 100%;
+    overflow-x: auto;
+    background: #ffffff;
+    border: none;
+    box-shadow: none;
   }
 
   .table-data table,
@@ -83,6 +116,9 @@ body {
     width: 100%;
     table-layout: auto;
     border-collapse: collapse;
+    background: #ffffff;
+    border: none;
+    box-shadow: none;
   }
 
   .table-data th,
@@ -98,5 +134,6 @@ body {
   .order-table button {
     padding: 3px 8px !important;
     font-size: 11px !important;
+    box-shadow: none;
   }
 }

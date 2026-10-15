@@ -43,3 +43,5 @@ module.exports = {
   Price,
   Stock,
 };
+
+Position.belongsTo(Stock, { foreignKey: "Instrument", targetKey: "symbol", constraints: false });

@@ -1,41 +1,31 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const StockPriceHistory = sequelize.define(
-  "StockPriceHistory",
+const Stock = sequelize.define(
+  "Stock",
   {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-
-    stock: {
+    symbol: {
       type: DataTypes.STRING,
       allowNull: false,
-      uppercase: true,
-      trim: true,
+      unique: true, // required for the Position -> Stock association
     },
-
+    companyName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     price: {
-      type: DataTypes.DECIMAL(12, 2),
+      type: DataTypes.FLOAT,
       allowNull: false,
-    },
-
-    timestamp: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW,
     },
   },
   {
     timestamps: false,
-    indexes: [
-      {
-        fields: ["stock", "timestamp"],
-      },
-    ],
   }
 );
 
-module.exports = StockPriceHistory;
+module.exports = Stock;

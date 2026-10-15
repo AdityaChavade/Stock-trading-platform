@@ -66,9 +66,9 @@ const AccountValueChart = ({ currentUserId }) => {
       chartInstanceRef.current.destroy();
     }
 
-    const gradient = ctx.createLinearGradient(0, 0, 0, 260);
-    gradient.addColorStop(0, "rgba(79, 70, 229, 0.25)");
-    gradient.addColorStop(1, "rgba(79, 70, 229, 0.0)");
+    const gradient = ctx.createLinearGradient(0, 0, 0, 280);
+    gradient.addColorStop(0, "rgba(101, 78, 255, 0.08)");
+    gradient.addColorStop(1, "rgba(101, 78, 255, 0.0)");
 
     chartInstanceRef.current = new ChartJS(ctx, {
       type: "line",
@@ -77,14 +77,16 @@ const AccountValueChart = ({ currentUserId }) => {
           {
             label: "Account Value",
             data: dataPoints,
-            borderColor: "#4f46e5",
-            borderWidth: 2,
+            borderColor: "#6C4EFF",
+            borderWidth: 2.5,
             backgroundColor: gradient,
             fill: true,
-            tension: 0.25,
+            tension: 0,
             pointRadius: 0,
             pointHoverRadius: 5,
-            pointHoverBackgroundColor: "#4f46e5",
+            pointHoverBackgroundColor: "#6C4EFF",
+            pointHoverBorderColor: "#ffffff",
+            pointHoverBorderWidth: 2,
           },
         ],
       },
@@ -114,13 +116,21 @@ const AccountValueChart = ({ currentUserId }) => {
           x: {
             type: "time",
             time: { unit: "day" },
-            grid: { color: "#f1f5f9" },
-            ticks: { color: "#64748b", font: { size: 11 } },
+            grid: {
+              color: "#d1d5db",
+              borderDash: [6, 4],
+              drawBorder: false,
+            },
+            ticks: { color: "#9ca3af", font: { size: 11 } },
           },
           y: {
-            grid: { color: "#f1f5f9" },
+            grid: {
+              color: "#d1d5db",
+              borderDash: [6, 4],
+              drawBorder: false,
+            },
             ticks: {
-              color: "#64748b",
+              color: "#9ca3af",
               font: { size: 11 },
               callback: (value) => `₹${value.toLocaleString()}`,
             },
@@ -185,6 +195,13 @@ const AccountValueChart = ({ currentUserId }) => {
     };
   }, [currentUserId, range]);
 
+  const rangeLabels = {
+    "1D": "1 Day",
+    "1W": "1 Week",
+    "1M": "1 Month",
+    "1Y": "1 Year",
+  };
+
   return (
     <div
       style={{
@@ -192,13 +209,12 @@ const AccountValueChart = ({ currentUserId }) => {
         border: "1px solid #eef0f3",
         borderRadius: "12px",
         padding: "20px",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.03)",
       }}
     >
       <div
         style={{
           display: "flex",
-          justify: "space-between",
+          justifyContent: "space-between",
           alignItems: "center",
           marginBottom: "16px",
         }}
@@ -211,27 +227,45 @@ const AccountValueChart = ({ currentUserId }) => {
             Real-time portfolio valuation history
           </span>
         </div>
-        <div style={{ display: "flex", gap: "6px" }}>
-          {["1D", "1W", "1M", "1Y"].map((r) => (
-            <button
-              key={r}
-              onClick={() => setRange(r)}
-              style={{
-                background: range === r ? "#4f46e5" : "#f1f5f9",
-                color: range === r ? "#ffffff" : "#64748b",
-                border: "none",
-                borderRadius: "6px",
-                padding: "5px 12px",
-                cursor: "pointer",
-                fontWeight: "600",
-                fontSize: "12px",
-                transition: "all 0.2s ease",
-              }}
-            >
-              {r}
-            </button>
+
+        {/* Dropdown time-range selector */}
+        <select
+          value={range}
+          onChange={(e) => setRange(e.target.value)}
+          style={{
+            appearance: "none",
+            WebkitAppearance: "none",
+            MozAppearance: "none",
+            background: "#f1f5f9",
+            color: "#1e293b",
+            border: "1px solid #e2e8f0",
+            borderRadius: "8px",
+            padding: "7px 32px 7px 12px",
+            fontSize: "13px",
+            fontWeight: "600",
+            cursor: "pointer",
+            outline: "none",
+            backgroundImage:
+              "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E\")",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "right 10px center",
+            transition: "border-color 0.2s ease, box-shadow 0.2s ease",
+          }}
+          onFocus={(e) => {
+            e.target.style.borderColor = "#4f46e5";
+            e.target.style.boxShadow = "0 0 0 3px rgba(79,70,229,0.12)";
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = "#e2e8f0";
+            e.target.style.boxShadow = "none";
+          }}
+        >
+          {Object.entries(rangeLabels).map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
           ))}
-        </div>
+        </select>
       </div>
       <div style={{ height: "280px", width: "100%" }}>
         <canvas ref={canvasRef} />

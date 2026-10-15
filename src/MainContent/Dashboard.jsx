@@ -1,6 +1,6 @@
 import TotalFunds from "./TotalFunds";
 import AccountValue from "./AccountValue";
-import AccountValueChart from "./AccountValueChart";
+import MarketOverview from "./MarketOverview";
 import TotalOrders from "./TotalOrders";
 import TotalPositions from "./TotalPositions";
 import "./dashboard.css";
@@ -14,10 +14,11 @@ function Dashboard() {
         <AccountValue />
       </div>
       <div style={{ marginTop: "24px" }}>
-        <AccountValueChart />
+        <MarketOverview />
       </div>
     </div>
   );
 }
 
 export default Dashboard;
+

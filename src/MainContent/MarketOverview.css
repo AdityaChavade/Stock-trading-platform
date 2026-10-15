@@ -1,0 +1,174 @@
+/* ───── Market Overview Card ───── */
+
+.market-overview-card {
+  background: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 12px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.market-overview-accent {
+  display: none;
+}
+
+/* ───── Header ───── */
+
+.market-overview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 0;
+  background: #ffffff;
+  border: none;
+  box-shadow: none;
+}
+
+.market-overview-title-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.market-overview-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5f6368;
+}
+
+.market-overview-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #202124;
+  font-family: 'Inter', 'Google Sans', 'Segoe UI', sans-serif;
+  letter-spacing: -0.2px;
+}
+
+/* ───── Range Selector Pills ───── */
+
+.market-overview-range-selector {
+  display: flex;
+  gap: 4px;
+  background: #ffffff;
+  border: none;
+  box-shadow: none;
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.range-btn {
+  border: none;
+  background: #ffffff;
+  color: #5f6368;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+  letter-spacing: 0.2px;
+  box-shadow: none;
+}
+
+.range-btn:hover {
+  color: #202124;
+  background: #ffffff;
+}
+
+.range-btn-active,
+.range-btn-active:hover {
+  background: #ffffff;
+  color: #1a73e8;
+  border: none;
+  box-shadow: none;
+  font-weight: 600;
+}
+
+/* ───── Chart Container ───── */
+
+.market-overview-chart-container {
+  height: 260px;
+  width: 100%;
+  padding: 8px 20px 16px;
+  background: #ffffff;
+  border: none;
+  box-shadow: none;
+}
+
+.market-overview-chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+  background: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ───── Loading State ───── */
+
+.market-overview-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 12px;
+  color: #9aa0a6;
+  font-size: 13px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background: #ffffff;
+  border: none;
+  box-shadow: none;
+}
+
+.loading-pulse {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #4285F4;
+  opacity: 0.2;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(0.8);
+    opacity: 0.15;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.35;
+  }
+}
+
+/* ───── Responsive ───── */
+
+@media (max-width: 768px) {
+  .market-overview-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 16px 0;
+  }
+
+  .market-overview-chart-container {
+    height: 200px;
+    padding: 8px 12px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .market-overview-chart-container {
+    height: 160px;
+  }
+
+  .range-btn {
+    padding: 4px 8px;
+    font-size: 11px;
+  }
+}

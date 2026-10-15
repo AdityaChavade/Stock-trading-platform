@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { Context } from "./GeneralContext";
 import Draggable from 'react-draggable';
 import "./buyaction.css";
@@ -7,6 +7,7 @@ import axios from "axios";
 import { useAccount } from "../context/accountcontext";
 
 const BuyActionWindow = ({ uid, price, action }) => {
+  const nodeRef = useRef(null);
   const { closeActionWindow } = useContext(Context);
   const { refetchAccountData } = useAccount();
   const [qty, setqty] = useState(1);
@@ -54,8 +55,8 @@ const BuyActionWindow = ({ uid, price, action }) => {
     }
   };
   return (
-    <Draggable handle=".window-header">
-      <div className="buy-window">
+    <Draggable nodeRef={nodeRef} handle=".window-header">
+      <div ref={nodeRef} className="buy-window">
         <div className={`window-header ${action === "Sell" ? "sell-header" : "buy-header"}`}>
           <h2 className="window-title">{action || "BUY"}: {uid}</h2>
           <span className="close-icon" onClick={closeActionWindow}>&times;</span>
